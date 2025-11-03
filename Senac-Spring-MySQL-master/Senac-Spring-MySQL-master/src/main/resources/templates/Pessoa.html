@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Pessoas</title>
+    <script src="/js/script.js"></script>
+</head>
+<body>
+<h1>Cadastro de Pessoas</h1>
+
+<form action="/pessoas/salvar" method="post">
+    <input type="text" name="nome" placeholder="Nome" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <button type="submit" onclick="mensagem()">Salvar</button>
+</form>
+
+<h2>Lista de Pessoas</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+    </tr>
+    <tr th:each="p : ${pessoas}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.nome}"></td>
+        <td th:text="${p.email}"></td>
+        <td>
+            <a th:href="@{'/pessoas/deletar/' + ${p.id}}">Excluir</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
