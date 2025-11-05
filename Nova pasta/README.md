@@ -61,3 +61,8 @@ mvn spring-boot:run
 - Para produção, configure corretamente as credenciais e a política de `ddl-auto`.
 - O template `index.html` concentra todas as operações em uma única página usando Thymeleaf.
 
+---
+Se quiser, eu posso:
+- Gerar o projeto com outro nome de pacote que você preferir.
+- Incluir testes unitários simples.
+- Alterar o banco para PostgreSQL ou H2 em memória para testes.

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Pessoa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; background: #f4f7f9; color: #222; }
+        .card { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); margin-bottom: 16px; }
+        .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+        input[type=text], input[type=email] { padding:8px; border-radius:6px; border:1px solid #ccc; }
+        button { padding:8px 12px; border-radius:6px; border:none; cursor:pointer; background:#1976d2; color:white; }
+        table { width:100%; border-collapse:collapse; background:white; }
+        th, td { padding:10px; border:1px solid #e6e6e6; }
+        th { background:#1976d2; color:white; text-align:left; }
+        a { color:#1976d2; text-decoration:none; }
+    </style>
+</head>
+<body>
+<h1>Cadastro de Pessoas</h1>
+
+<div class="card">
+    <form th:action="@{/pessoas/salvar}" th:object="${pessoa}" method="post" id="formPessoa">
+        <input type="hidden" th:field="*{id}" id="id">
+        <div class="row">
+            <label>Nome</label>
+            <input type="text" th:field="*{nome}" id="nome" placeholder="Nome" required>
+            <label>Email</label>
+            <input type="email" th:field="*{email}" id="email" placeholder="Email">
+            <label>Telefone</label>
+            <input type="text" th:field="*{telefone}" id="telefone" placeholder="Telefone">
+            <button type="submit" id="btnSubmit" th:text="${pessoa.id} != null ? 'Atualizar' : 'Cadastrar'">Cadastrar</button>
+            <button type="button" id="btnLimpar" onclick="limpar()">Limpar</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Ações</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${pessoas}">
+                <td th:text="${p.id}">1</td>
+                <td th:text="${p.nome}">Nome</td>
+                <td th:text="${p.email}">email</td>
+                <td th:text="${p.telefone}">telefone</td>
+                <td>
+                    <a th:href="@{/pessoas/editar/{id}(id=${p.id})}">Editar</a> |
+                    <a th:href="@{/pessoas/deletar/{id}(id=${p.id})}" onclick="return confirm('Excluir?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
